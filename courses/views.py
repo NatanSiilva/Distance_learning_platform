@@ -1,4 +1,4 @@
-from django.urlsi import reverse_lazy
+from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
