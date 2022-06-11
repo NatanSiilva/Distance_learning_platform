@@ -98,8 +98,8 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
 
 
     def dispatch(self, request, module_id, model_name, id=None):
-        self.module = get_object_or_404(Module, id=module_id, course__owner=request.user) ## module_id = 'modulo 1'
-        self.model = self.get_model(model_name) ## model_name = 'text'
+        self.module = get_object_or_404(Module, id=module_id, course__owner=request.user)
+        self.model = self.get_model(model_name)
 
         if id:
             self.obj = get_object_or_404(self.model, id=id, owner=request.user)
