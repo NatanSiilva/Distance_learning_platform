@@ -192,8 +192,7 @@ class CourseListView(TemplateResponseMixin, View):
                 cache.set('all_courses', courses)
 
         return self.render_to_response({'subjects': subjects, 'courses': courses, 'subject': subject})
-
-
+        
 
 class CourseDetailView(DetailView):
     model = Course
