@@ -3,10 +3,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
+from rest_framework import viewsets
 
 from django.shortcuts import get_object_or_404
 
-from .serializers import SubjectSerializer
+from .serializers import SubjectSerializer, CourseSerializer
 from ..models import Subject, Course, Module
 
 
@@ -33,3 +34,8 @@ class CourseEnrollView(APIView):
                 'enrolled': True
             }
         })
+
+
+class CourseViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer

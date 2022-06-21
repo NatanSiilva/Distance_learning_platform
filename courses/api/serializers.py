@@ -16,6 +16,7 @@ class ModuleSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     modules = ModuleSerializer(many=True, read_only=True)
+    subject = SubjectSerializer()
 
     class Meta:
         model = Course
