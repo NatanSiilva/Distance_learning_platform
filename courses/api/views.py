@@ -8,8 +8,10 @@ from rest_framework import viewsets
 
 from django.shortcuts import get_object_or_404
 
-from .serializers import SubjectSerializer, CourseSerializer
+from .serializers import SubjectSerializer, CourseSerializer, CourseWithContentsSerializer
+from .permissions import IsEnrolled
 from ..models import Subject, Course, Module
+
 
 
 class SubjectListView(generics.ListAPIView):
@@ -46,8 +48,17 @@ class CourseViewSet(viewsets.ReadOnlyModelViewSet):
     def enroll(self, request, *args, **kwargs):
         course = self.get_object()
         course.students.add(request.user)
+        
         return Response({
             'data': {
                 'enrolled': True
             }
         })
+
+
+    @action(
+        detail=True, methods=['get'], serializer_class=CourseWithContentsSerializer, authentication_classes=[BasicAuthentication], 
+        permission_classes=[IsAuthenticated, IsEnrolled]
+    )
+    def contents(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
